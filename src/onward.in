@@ -1,0 +1,5 @@
+#!/sbin/openrc-run
+
+command="@CMAKE_INSTALL_FULL_BINDIR@/onward"
+command_background="yes"
+pidfile="${XDG_RUNTIME_DIR}/onward.pid"

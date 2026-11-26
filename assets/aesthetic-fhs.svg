@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="304" viewBox="0 0 880 304">
+  <title>Browsing with Aesthetic FHS</title>
+  <desc>Index and ls receive filtered directory listings. Programs can open a traditional path directly with the usual filesystem permissions.</desc>
+  <rect x="1" y="1" width="878" height="302" rx="18" fill="#111b1d" stroke="#3d5053"/>
+  <g font-family="sans-serif" fill="#e5edee">
+    <text x="24" y="40" font-size="23" font-weight="600">Browsing with Aesthetic FHS</text>
+    <text x="24" y="68" font-size="16">The kernel handles listing a folder and opening a known path separately.</text>
+    <rect x="24" y="92" width="258" height="84" rx="9" fill="#182b2a" stroke="#355752"/>
+    <rect x="24" y="194" width="258" height="84" rx="9" fill="#1a2632" stroke="#394e63"/>
+    <rect x="498" y="92" width="358" height="84" rx="9" fill="#182b2a" stroke="#355752"/>
+    <rect x="498" y="194" width="358" height="84" rx="9" fill="#1a2632" stroke="#394e63"/>
+    <path d="M282 134 H490" stroke="#75daca" fill="none"/>
+    <path d="m497 134 -9 -5 v10 z" fill="#75daca"/>
+    <path d="M282 236 H490" stroke="#87baf1" fill="none"/>
+    <path d="m497 236 -9 -5 v10 z" fill="#87baf1"/>
+    <g font-size="18" font-weight="600">
+      <text x="42" y="125" fill="#75daca">Browse the root folder</text>
+      <text x="42" y="227" fill="#87baf1">Open a path directly</text>
+    </g>
+    <g font-family="monospace" font-size="17">
+      <text x="516" y="125">/Applications   /System   /Users</text>
+      <text x="516" y="227">/etc   /home</text>
+    </g>
+    <g font-size="15">
+      <text x="42" y="151">Open / in Index or run ls /.</text>
+      <text x="42" y="253">An app opens its settings.</text>
+      <text x="516" y="151">Selected traditional names stay out of view.</text>
+      <text x="516" y="253">Usual filesystem permissions apply.</text>
+      <text x="390" y="123" text-anchor="middle" fill="#75daca">Filtered listing</text>
+      <text x="390" y="225" text-anchor="middle" fill="#87baf1">Direct lookup</text>
+    </g>
+  </g>
+</svg>

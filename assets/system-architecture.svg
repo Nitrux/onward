@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="490" viewBox="0 0 880 490">
+  <title>Nitrux filesystem architecture</title>
+  <desc>Mount points connect to their backing filesystems. OverlayFS combines tmpfs and XFS at the root. Home and service data have separate persistent mounts.</desc>
+  <rect x="1" y="1" width="878" height="488" rx="18" fill="#111b1d" stroke="#3d5053"/>
+  <text x="24" y="40" font-family="sans-serif" font-size="23" font-weight="600" fill="#e5edee">How Nitrux stores your changes</text>
+  <rect x="22" y="64" width="282" height="404" rx="10" fill="#182b2a" stroke="#355752"/>
+  <rect x="568" y="64" width="290" height="404" rx="10" fill="#1a2632" stroke="#394e63"/>
+  <text x="38" y="95" font-family="sans-serif" font-size="18" font-weight="600" fill="#75daca">Mount points</text>
+  <text x="584" y="95" font-family="sans-serif" font-size="18" font-weight="600" fill="#87baf1">Backing storage</text>
+  <rect x="37" y="147" width="250" height="69" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="38" y="156" width="3" height="51" rx="1" fill="#b5a0e3" stroke="#b5a0e3"/>
+  <text x="52" y="172" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">/</text>
+  <text x="52" y="195" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Merged view from OverlayFS</text>
+  <rect x="37" y="293" width="250" height="69" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="38" y="302" width="3" height="51" rx="1" fill="#75daca" stroke="#75daca"/>
+  <text x="52" y="318" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">/home</text>
+  <text x="52" y="341" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Files, AppBoxes and settings</text>
+  <rect x="37" y="380" width="250" height="69" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="38" y="389" width="3" height="51" rx="1" fill="#e8bc79" stroke="#e8bc79"/>
+  <text x="52" y="405" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">/var/lib</text>
+  <text x="52" y="428" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">System apps and service data</text>
+  <rect x="584" y="115" width="258" height="65" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="585" y="124" width="3" height="47" rx="1" fill="#b5a0e3" stroke="#b5a0e3"/>
+  <text x="599" y="140" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">tmpfs · RAM</text>
+  <text x="599" y="163" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Session writes clear on reboot</text>
+  <rect x="584" y="196" width="258" height="65" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="585" y="205" width="3" height="47" rx="1" fill="#87baf1" stroke="#87baf1"/>
+  <text x="599" y="221" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">NX_ROOT · XFS</text>
+  <text x="599" y="244" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Persistent, read-only base</text>
+  <rect x="584" y="295" width="258" height="65" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="585" y="304" width="3" height="47" rx="1" fill="#75daca" stroke="#75daca"/>
+  <text x="599" y="320" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">NX_HOME · F2FS</text>
+  <text x="599" y="343" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Personal files persist</text>
+  <rect x="584" y="382" width="258" height="65" rx="7" fill="#101a1d" stroke="#35464a"/>
+  <rect x="585" y="391" width="3" height="47" rx="1" fill="#e8bc79" stroke="#e8bc79"/>
+  <text x="599" y="407" font-family="monospace" font-size="17" font-weight="600" fill="#e5edee">NX_VAR_LIB · F2FS</text>
+  <text x="599" y="430" font-family="sans-serif" font-size="14" font-weight="400" fill="#c2ced0">Service state persists</text>
+  <path d="M287 181 H324" fill="none" stroke="#b5a0e3" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M324 181 V147 H580" fill="none" stroke="#b5a0e3" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M575 143 l7 4 -7 4 z" fill="#b5a0e3"/>
+  <rect x="366" y="133" width="148" height="28" rx="7" fill="#152125" stroke="#b5a0e3"/>
+  <text x="379" y="152" font-family="sans-serif" font-size="15" font-weight="600" fill="#b5a0e3">upper layer</text>
+  <path d="M324 181 V228 H580" fill="none" stroke="#87baf1" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M575 224 l7 4 -7 4 z" fill="#87baf1"/>
+  <rect x="366" y="214" width="148" height="28" rx="7" fill="#152125" stroke="#87baf1"/>
+  <text x="379" y="233" font-family="sans-serif" font-size="15" font-weight="600" fill="#87baf1">lower layer</text>
+  <path d="M287 327 V327 H580" fill="none" stroke="#75daca" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M575 323 l7 4 -7 4 z" fill="#75daca"/>
+  <rect x="366" y="313" width="148" height="28" rx="7" fill="#152125" stroke="#75daca"/>
+  <text x="379" y="332" font-family="sans-serif" font-size="15" font-weight="600" fill="#75daca">user storage</text>
+  <path d="M287 414 V414 H580" fill="none" stroke="#e8bc79" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M575 410 l7 4 -7 4 z" fill="#e8bc79"/>
+  <rect x="366" y="400" width="148" height="28" rx="7" fill="#152125" stroke="#e8bc79"/>
+  <text x="379" y="419" font-family="sans-serif" font-size="15" font-weight="600" fill="#e8bc79">system state</text>
+</svg>

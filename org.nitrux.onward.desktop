@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Onward
+Comment=Learn the Nitrux workspace, software model, and system design
+TryExec=onward
+Exec=onward
+Terminal=false
+Type=Application
+Categories=Qt;System;Documentation;
+StartupNotify=true
+Icon=nx-logo

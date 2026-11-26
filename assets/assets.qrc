@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/org/nitrux/onward">
+        <file>aesthetic-fhs.svg</file>
+        <file>apps/apphub.png</file>
+        <file>apps/builder.png</file>
+        <file>apps/distrobox.png</file>
+        <file>apps/flathub.png</file>
+        <file>nitrux-logo.svg</file>
+        <file>nx_logo.svg</file>
+        <file>settings/cinderward.png</file>
+        <file>settings/settings.png</file>
+        <file>settings/wirecloak.png</file>
+        <file>system-architecture.svg</file>
+        <file>workspace/calendar.png</file>
+        <file>workspace/controls.png</file>
+        <file>workspace/desktop.png</file>
+        <file>workspace/floating.png</file>
+        <file>workspace/launcher.png</file>
+        <file>workspace/lock-screen.png</file>
+        <file>workspace/notifications.png</file>
+        <file>workspace/tiled.png</file>
+        <file>workspace/volume.png</file>
+    </qresource>
+</RCC>
