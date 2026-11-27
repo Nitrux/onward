@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # SPDX-License-Identifier: BSD-3-Clause
-# Copyright 2026 <Nitrux Latinoamericana S.C. <hello@nxos.org>>
+# Copyright 2024-2025 <Nitrux Latinoamericana S.C. <hello@nxos.org>>
 
 
 # -- Exit on errors.
@@ -34,10 +34,18 @@ $APT_COMMAND install -y --no-install-recommends \
     extra-cmake-modules \
     gettext \
     gnupg2 \
+    libkf6bluezqt-dev \
+    libkf6calendarcore-dev \
+    libkf6colorscheme-dev \
     libkf6config-dev \
     libkf6coreaddons-dev \
     libkf6i18n-dev \
     libkf6notifications-dev \
+    libkf6windowsystem-dev \
+    liblayershellqtinterface-dev \
+    libxcb-icccm4-dev \
+    libxcb-shape0-dev \
+    libxkbcommon-dev \
     lintian \
     pkg-config \
     qt6-base-dev \
