@@ -1,50 +1,69 @@
 #!/usr/bin/env bash
 
 # SPDX-License-Identifier: BSD-3-Clause
-# Copyright 2026 Nitrux
+# Copyright 2026 <Nitrux Latinoamericana S.C. <hello@nxos.org>>
+
+
+# -- Exit on errors.
 
 set -euo pipefail
 
-if (( EUID == 0 )); then
-    SUDO=()
+
+# -- Check if running as root.
+
+if [ "$EUID" -ne 0 ]; then
+    APT_COMMAND="sudo apt"
 else
-    SUDO=(sudo)
+    APT_COMMAND="apt"
 fi
 
-"${SUDO[@]}" apt-get update -q
-"${SUDO[@]}" apt-get install -y --no-install-recommends \
+
+# -- Install build packages.
+
+$APT_COMMAND update -q
+$APT_COMMAND install -y --no-install-recommends \
+    appstream \
+    automake \
+    autotools-dev \
     build-essential \
-    ca-certificates \
+    clang \
     cmake \
     curl \
-    dpkg-dev \
+    devscripts \
+    equivs \
     extra-cmake-modules \
-    gnupg \
+    gettext \
+    gnupg2 \
+    libkf6config-dev \
     libkf6coreaddons-dev \
     libkf6i18n-dev \
+    libkf6notifications-dev \
+    lintian \
     pkg-config \
     qt6-base-dev \
     qt6-base-dev-tools \
     qt6-declarative-dev \
-    qt6-declarative-dev-tools
+    qt6-multimedia-dev \
+    qt6-svg-dev \
+    qt6-wayland-dev
 
-KEYRING_DIR=/etc/apt/keyrings
-KEYRING_PATH="$KEYRING_DIR/nitrux-mauikit.gpg"
-SOURCE_PATH=/etc/apt/sources.list.d/nitrux-mauikit.sources
 
-"${SUDO[@]}" install -d -m 0755 "$KEYRING_DIR"
-curl -fsSL https://packagecloud.io/nitrux/mauikit/gpgkey \
-    | "${SUDO[@]}" gpg --dearmor --yes -o "$KEYRING_PATH"
-"${SUDO[@]}" chmod 0644 "$KEYRING_PATH"
-"${SUDO[@]}" tee "$SOURCE_PATH" >/dev/null <<'SOURCE'
+# -- Add package from our repository.
+
+mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://packagecloud.io/nitrux/mauikit/gpgkey | gpg --dearmor -o /etc/apt/keyrings/nitrux-mauikit.gpg
+
+cat <<EOF > /etc/apt/sources.list.d/nitrux-mauikit.sources
 Types: deb
-Description: Nitrux MauiKit repository
+Description: Nitrux MauiKit Repo
 URIs: https://packagecloud.io/nitrux/mauikit/debian/
 Suites: duke
 Components: main
 Signed-By: /etc/apt/keyrings/nitrux-mauikit.gpg
 Enabled: yes
-SOURCE
+EOF
 
-"${SUDO[@]}" apt-get update -q
-"${SUDO[@]}" apt-get install -y --no-install-recommends mauikit
+$APT_COMMAND update -q
+$APT_COMMAND install -y --no-install-recommends \
+	mauikit
