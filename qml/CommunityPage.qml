@@ -8,13 +8,25 @@ ColumnLayout {
     required property real viewportHeight
     required property string title
     required property string description
-    spacing: Maui.Style.space.medium
+    Layout.maximumWidth: Maui.Style.units.gridUnit * 36
+    spacing: Maui.Style.space.big
+
+    Image {
+        opacity: Math.max(0, communityHeader.reveal - 2)
+        Layout.alignment: Qt.AlignHCenter
+        Layout.preferredWidth: Maui.Style.units.gridUnit * 8
+        Layout.preferredHeight: Layout.preferredWidth
+        source: "nx_logo.svg"
+        sourceSize.width: Math.ceil(width * Screen.devicePixelRatio)
+        fillMode: Image.PreserveAspectFit
+        Accessible.name: qsTr("Nitrux Latinoamericana")
+        Accessible.role: Accessible.Graphic
+    }
 
     Maui.SectionHeader {
         id: communityHeader
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
-        Layout.maximumWidth: Maui.Style.units.gridUnit * 36
         text1: communityPage.title
         text2: communityPage.description
         label1.font.pointSize: Maui.Style.fontSizes.enormous * 2
@@ -40,20 +52,8 @@ ColumnLayout {
     ColumnLayout {
         Layout.alignment: Qt.AlignHCenter
         Layout.fillWidth: true
-        Layout.maximumWidth: Maui.Style.units.gridUnit * 44
-        spacing: Maui.Style.space.medium
+        spacing: Maui.Style.space.big
         opacity: Math.max(0, communityHeader.reveal - 2)
-
-        Image {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: Maui.Style.units.gridUnit * 8
-            Layout.preferredHeight: Layout.preferredWidth
-            source: "nx_logo.svg"
-            sourceSize.width: Math.ceil(width * Screen.devicePixelRatio)
-            fillMode: Image.PreserveAspectFit
-            Accessible.name: qsTr("Nitrux Latinoamericana")
-            Accessible.role: Accessible.Graphic
-        }
 
         Repeater {
             model: [
@@ -62,7 +62,7 @@ ColumnLayout {
                     description: qsTr("Translate a message, design artwork, test a release, or package an AppBox. Use the issue templates to report a bug or request a feature."),
                     links: [
                         [qsTr("Contribution Guide"), "https://nxos.org/documentation/resources/get-involved/"],
-                        [qsTr("Bug Tracker"), "https://github.com/Nitrux/nitrux-bug-tracker/issues"],
+                        [qsTr("Bug Tracker"), "https://github.com/Nitrux/nitrux-bug-tracker"],
                         [qsTr("AppBox Packaging"), "https://github.com/Nitrux/nx-apphub/wiki"]
                     ]
                 },
@@ -76,70 +76,75 @@ ColumnLayout {
                         ["GitHub", "https://github.com/Nitrux/"], ["Instagram", "https://instagram.com/nitrux_nx"],
                         ["Telegram", "https://t.me/nitrux_eng"], ["Mastodon", "https://floss.social/@Nitrux_NX"],
                         ["Threads", "https://www.threads.net/@nitrux_nx"], ["Gitter", "https://gitter.im/Nitrux/public"],
-                        ["Reddit", "https://www.reddit.com/r/Nitrux_NX/"], [qsTr("E-mail"), "mailto:hello@nxos.org"]
+                        ["Reddit", "https://www.reddit.com/r/Nitrux_NX/"]
                     ]
                 },
                 {
                     title: qsTr("Resources"),
-                    description: qsTr("Check known issues for your release or follow a tutorial at your own pace."),
+                    description: qsTr("Browse the documentation, follow a tutorial, or read the Nitrux blog."),
                     links: [
-                        [qsTr("Documentation"), "https://nxos.org/documentation/"], [qsTr("Changelog"), "https://nxos.org/changelog/"],
-                        [qsTr("Known Issues"), "https://nxos.org/issues/"], [qsTr("Tutorial"), "https://nxos.org/tutorial/"],
-                        [qsTr("PSA"), "https://nxos.org/psa/"], [qsTr("Blog"), "https://nxos.org/blog/"]
+                        [qsTr("Documentation"), "https://nxos.org/documentation/"],
+                        [qsTr("Tutorials"), "https://nxos.org/documentation/resources/tutorials/"],
+                        [qsTr("Blog"), "https://nxos.org/blog/"]
                     ]
                 }
             ]
 
-            Rectangle {
-                id: card
+            ColumnLayout {
+                id: section
                 required property var modelData
                 Layout.fillWidth: true
-                implicitHeight: content.implicitHeight + Maui.Style.contentMargins * 2
-                color: Maui.Theme.alternateBackgroundColor
-                border.color: Maui.Theme.backgroundColor
-                radius: Maui.Style.radiusV
-                ColumnLayout {
-                    id: content
-                    anchors.fill: parent
-                    anchors.margins: Maui.Style.contentMargins
+                spacing: Maui.Style.space.small
+
+                Maui.SectionHeader {
+                    Layout.fillWidth: true
+                    text1: section.modelData.title
+                    text2: section.modelData.description
+                    label1.horizontalAlignment: Text.AlignHCenter
+                    label1.wrapMode: Text.Wrap
+                    label2.horizontalAlignment: Text.AlignHCenter
+                    label2.wrapMode: Text.Wrap
+                }
+
+                Flow {
+                    id: linkFlow
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Maui.Style.contentMargins
+                    Layout.rightMargin: Maui.Style.contentMargins
                     spacing: Maui.Style.space.small
-                    Maui.SectionHeader {
-                        Layout.fillWidth: true
-                        text1: card.modelData.title
-                        text2: card.modelData.description
-                        label2.wrapMode: Text.Wrap
-                    }
-                    Flow {
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Maui.Style.contentMargins
-                        Layout.rightMargin: Maui.Style.contentMargins
-                        spacing: Maui.Style.space.small
-                        Repeater {
-                            model: card.modelData.links
-                            Button {
-                                required property var modelData
-                                text: modelData[0]
-                                flat: true
-                                onClicked: Qt.openUrlExternally(modelData[1])
+
+                    Repeater {
+                        id: links
+                        model: section.modelData.links
+                        Button {
+                            id: linkButton
+                            required property int index
+                            required property var modelData
+                            text: modelData[0]
+                            flat: true
+                            font.underline: true
+                            HoverHandler { cursorShape: Qt.PointingHandCursor }
+                            onClicked: Qt.openUrlExternally(modelData[1])
+
+                            // Shift each wrapped row by half its unused width.
+                            transform: Translate {
+                                x: {
+                                    let last = linkButton
+                                    for (let i = linkButton.index + 1; i < links.count; ++i) {
+                                        const next = links.itemAt(i)
+                                        if (!next || next.y !== linkButton.y)
+                                            break
+                                        last = next
+                                    }
+                                    return linkFlow.effectiveLayoutDirection === Qt.RightToLeft
+                                        ? -last.x / 2
+                                        : (linkFlow.width - last.x - last.width) / 2
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-
-        Label {
-            Layout.fillWidth: true
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
-            text: qsTr("Trademarks and logos belong to their respective owners.")
-        }
-        Button {
-            Layout.alignment: Qt.AlignHCenter
-            flat: true
-            font.underline: true
-            text: qsTr("Website Privacy Policy")
-            onClicked: Qt.openUrlExternally("https://nxos.org/privacy/")
         }
     }
 }

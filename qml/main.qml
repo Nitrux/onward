@@ -32,7 +32,7 @@ Maui.ApplicationWindow {
         qsTr("Workspace Keybinds"),
         qsTr("Nitrux Architecture"),
         qsTr("Apps and Software"),
-        qsTr("Settings, Security and Performance"),
+        qsTr("Security and Performance"),
         qsTr("Get Involved")
     ]
     readonly property var stepDescriptions: [
